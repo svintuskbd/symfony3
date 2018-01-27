@@ -11,10 +11,11 @@ class PostAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', null, [])
+            ->add('title', null, [
+                'label' => 'Title'
+            ])
             ->add('description', null, [])
             ->add('content', null, [])
-//            ->add('slug', null,[])
         ;
     }
 
