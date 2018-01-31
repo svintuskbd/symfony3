@@ -23,15 +23,18 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-//            $task = $form->getData();
+            /** @var Line $lineSubmit */
+            $lineSubmit = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $em = $this->getDoctrine()->getManager();
-            // $em->persist($task);
-            // $em->flush();
+            $logicService = $this->get('script_bundle.logic_service');
+            $uniqId = $logicService->logicBeforeSendToApi($lineSubmit);
+
+            $lineSubmit->setApiResult($uniqId);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($lineSubmit);
+            $em->flush();
 
             return $this->redirectToRoute('script_rout');
         }

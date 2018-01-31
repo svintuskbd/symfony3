@@ -33,3 +33,14 @@ services:
         class: AppBundle\EventListener\PostSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    script_bundle.logic_service:
+        class: ScriptBundle\Service\LogicService
+        public: true
+        arguments: ["@doctrine.orm.entity_manager", "@script_bundle.api_helper_service"]
+
+    script_bundle.api_helper_service:
+        class: ScriptBundle\Service\ApiHelperService
+        public: true
+        arguments: ["@doctrine.orm.entity_manager"]
+
