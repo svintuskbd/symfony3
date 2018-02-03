@@ -1,11 +1,17 @@
+test:
+    resource: "@TestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 script:
     resource: "@ScriptBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /script
 
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    prefix:   /blog
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

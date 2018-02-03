@@ -12,16 +12,18 @@ class LogicService
     /** @var ApiHelperService $apiHelperService */
     protected $apiHelperService;
 
-    /**
-     * LogicService constructor.
-     * @param EntityManager $entityManager
-     * @param ApiHelperService $apiHelperService
-     */
-    public function __construct(EntityManager $entityManager, ApiHelperService $apiHelperService)
-    {
-        $this->em = $entityManager;
-        $this->apiHelperService = $apiHelperService;
-    }
+    protected $logger;
+
+//    /**
+//     * LogicService constructor.
+//     * @param EntityManager $entityManager
+//     * @param ApiHelperService $apiHelperService
+//     */
+//    public function __construct(EntityManager $entityManager, ApiHelperService $apiHelperService)
+//    {
+//        $this->em = $entityManager;
+//        $this->apiHelperService = $apiHelperService;
+//    }
 
     /**
      * @param Line $line
@@ -34,5 +36,12 @@ class LogicService
         $uniqId = $this->apiHelperService->sendData($data);
 
         return $uniqId;
+    }
+
+    public function setLogger($logger, $entityManager, $apiHelperService)
+    {
+        $this->logger = $logger;
+        $this->em = $entityManager;
+        $this->apiHelperService = $apiHelperService;
     }
 }
