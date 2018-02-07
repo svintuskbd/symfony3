@@ -68,6 +68,13 @@ class Post
     private $updatedAt;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="rang", type="integer", length=100, nullable=true)
+     */
+    private $rang;
+
+    /**
      * One post has many Comments
      * @OneToMany(targetEntity="Comment", mappedBy="post")
      */
@@ -268,5 +275,23 @@ class Post
     public function __toString()
     {
         return $this->getTitle()? $this->getTitle() : '';
+    }
+
+    /**
+     * @return integer
+     */
+    public function getRang()
+    {
+        return $this->rang;
+    }
+
+    /**
+     * @param integer $rang
+     * @return Post
+     */
+    public function setRang($rang)
+    {
+        $this->rang = $rang;
+        return $this;
     }
 }

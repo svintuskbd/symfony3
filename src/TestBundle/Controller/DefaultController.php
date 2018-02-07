@@ -18,7 +18,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $articleRepos = $this->getDoctrine()->getRepository('AppBundle:Post');
-        $articles = $articleRepos->findAll();
+        $articles = $articleRepos->getArticleSortRang();
+//        $articles = $articleRepos->searchArticle('ea');
 
         return $this->render('TestBundle:Default:index.html.twig', [
             'articles' => $articles,
@@ -45,6 +46,7 @@ class DefaultController extends Controller
             /** @var Comment $commentSubmit */
             $commentSubmit = $form->getData();
             $commentSubmit->setPost($article);
+            $article->setRang($article->getRang()+1);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($commentSubmit);

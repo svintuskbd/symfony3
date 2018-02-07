@@ -15,7 +15,14 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
+            ->add('content', TextareaType::class, [
+                'label' => 'Comment body',
+                'attr' => [
+                    'class' => 'my_custom',
+                    'row' => 200,
+                    'width' => '200px'
+                ]
+            ])
             ->add('Send', SubmitType::class)
         ;
     }
