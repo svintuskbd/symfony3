@@ -1,0 +1,56 @@
+{% extends "TestBundle::base_single.html.twig" %}
+{% block content %}
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% if article is not empty %}
+                <div class="post-preview">
+                    <h2 class="post-title">{{ article.title }}</h2>
+                    <p>{{ article.content }}</p>
+                    <p class="post-meta">Posted by
+                        <a href="#">Start Bootstrap</a>
+                        on {{ article.createdAt|date("m/d/Y") }}</p>
+                </div>
+
+                <hr>
+            {% else %}
+                <div class="post-preview">
+                    <h2 class="post-title">
+                        Not found articles!
+                    </h2>
+                </div>
+
+                <hr>
+            {% endif %}
+
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right"
+                   href="javascript:void(0)" onclick="window.history.back();">Older Posts &rarr;</a>
+            </div>
+            <hr>
+            <div class="clearfix">
+                Comments:
+                {% if comments is not empty %}
+                    <ul>
+                    {% for comment in comments %}
+                        <li>
+                            <h4>{{ comment.title|default('') }}</h4>
+                            <p>{{ comment.content|default('') }}</p>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                <hr>
+                {{ form_start(commentForm) }}
+                {{ form_errors(commentForm) }}
+
+                {{ form_row(commentForm.title) }}
+                {{ form_row(commentForm.content) }}
+                {{ form_end(commentForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

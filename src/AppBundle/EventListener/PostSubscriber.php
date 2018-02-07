@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -27,6 +28,9 @@ class PostSubscriber implements EventSubscriber
         if ($entity instanceof Post) {
             $entity->setUpdatedAt(new \DateTime('now'));
         }
+        if ($entity instanceof Comment) {
+            $entity->setUpdatedAt(new \DateTime('now'));
+        }
     }
 
     public function prePersist(LifecycleEventArgs $args)
@@ -35,7 +39,9 @@ class PostSubscriber implements EventSubscriber
         $entity = $args->getObject();
         if ($entity instanceof Post) {
             $entity->setCreatedAt(new \DateTime('now'));
-
+        }
+        if ($entity instanceof Comment) {
+            $entity->setCreatedAt(new \DateTime('now'));
         }
     }
 }
