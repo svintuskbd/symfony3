@@ -4,6 +4,8 @@ namespace TestBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,17 +14,23 @@ use TestBundle\Form\CommentType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage_blog")
      *
      */
     public function indexAction()
     {
         $articleRepos = $this->getDoctrine()->getRepository('AppBundle:Post');
-        $articles = $articleRepos->getArticleSortRang();
-//        $articles = $articleRepos->searchArticle('ea');
+        $result = $articleRepos->getArticleSortRang();
+//        $result = $articleRepos->customFindAll();
+
+        if ($result instanceof NoResultException) {
+            $this->addFlash('error', $result->getMessage());
+        } elseif ($result instanceof NonUniqueResultException){
+            $this->addFlash('error', $result->getMessage());
+        }
 
         return $this->render('TestBundle:Default:index.html.twig', [
-            'articles' => $articles,
+            'articles' => $result,
         ]);
     }
 

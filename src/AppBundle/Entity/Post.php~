@@ -4,8 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -83,22 +81,14 @@ class Post
     private $comments;
 
     /**
-     * Many Features have One Product.
-     * @ManyToOne(targetEntity="User", inversedBy="posts")
-     * @JoinColumn(name="user_id", referencedColumnName="id")
+     * One user has many posts
+     * @OneToMany(targetEntity="User", mappedBy="post")
      */
     private $users;
 
-    /**
-    * Many Features have One Product.
-    * @ManyToOne(targetEntity="User", inversedBy="posts")
-    * @JoinColumn(name="updater_id", referencedColumnName="id")
-    */
-    private $updater;
-
-
     public function __construct() {
         $this->comments = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -310,53 +300,5 @@ class Post
     {
         $this->rang = $rang;
         return $this;
-    }
-
-    /**
-     * Set users
-     *
-     * @param \AppBundle\Entity\User $users
-     *
-     * @return Post
-     */
-    public function setUsers(\AppBundle\Entity\User $users = null)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    /**
-     * Get users
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Set updater
-     *
-     * @param \AppBundle\Entity\User $updater
-     *
-     * @return Post
-     */
-    public function setUpdater(\AppBundle\Entity\User $updater = null)
-    {
-        $this->updater = $updater;
-
-        return $this;
-    }
-
-    /**
-     * Get updater
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUpdater()
-    {
-        return $this->updater;
     }
 }

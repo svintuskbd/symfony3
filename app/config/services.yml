@@ -31,6 +31,7 @@ services:
 
     app_bundle.post_subscriber:
         class: AppBundle\EventListener\PostSubscriber
+        arguments: ["@security.token_storage"]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 

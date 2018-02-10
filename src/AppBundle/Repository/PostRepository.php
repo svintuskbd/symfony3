@@ -1,6 +1,8 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * PostRepository
@@ -10,6 +12,21 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function customFindAll()
+    {
+//        $qb = $this->createQueryBuilder('p');
+//
+//        try {
+//            return $qb->select($qb->expr()->max())
+//                ->getQuery()
+//                ->getSingleScalarResult();
+//        } catch (NoResultException $e) {
+//            return $e;
+//        } catch (NonUniqueResultException $e) {
+//            return $e;
+//        }
+    }
+
     public function getArticleSortRang()
     {
         return $queryBuilder = $this
